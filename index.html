@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tienda de Nathaly | Feria Navideña Noche de Estrellas</title>
+  <meta name="description" content="Tienda de Nathaly (Tocopilla, Chile) - Feria Navideña Noche de Estrellas. Compra por WhatsApp." />
+
+  <style>
+    :root{
+      --bg:#0b0f1a;
+      --card:#121a2b;
+      --muted:#97a3b6;
+      --text:#e9eefb;
+      --brand:#6ae4ff;
+      --brand2:#8b5cf6;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --line:rgba(255,255,255,.10);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 20% 0%, rgba(139,92,246,.25), transparent 55%),
+        radial-gradient(1000px 600px at 90% 10%, rgba(106,228,255,.20), transparent 55%),
+        var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:18px}
+    .topbar{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,26,.72);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:14px 18px;
+      max-width:1100px; margin:0 auto;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:12px;
+      background: linear-gradient(135deg, var(--brand2), var(--brand));
+      box-shadow: 0 0 30px rgba(106,228,255,.18);
+    }
+    .nav{
+      display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+      color:var(--muted); font-weight:600;
+    }
+    .nav a{padding:8px 10px;border-radius:12px}
+    .nav a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .actions{display:flex; gap:10px; align-items:center}
+    .btn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:700;
+      display:inline-flex; align-items:center; gap:8px;
+      transition: .15s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09)}
+    .btn-primary{
+      border:none;
+      background: linear-gradient(135deg, var(--brand2), var(--brand));
+      color:#06101a;
+      box-shadow: 0 18px 50px rgba(139,92,246,.22);
+    }
+    .pill{
+      font-size:12px; font-weight:800;
+      background: rgba(255,255,255,.10);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:999px;
+      color:var(--muted);
+    }
+
+    header.hero{
+      padding:26px 18px 8px;
+      max-width:1100px; margin:0 auto;
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:18px;
+    }
+    .hero-card{
+      background: rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+    }
+    .hero h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 3.6vw, 44px);
+      line-height:1.05;
+      letter-spacing:-.8px;
+    }
+    .hero p{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size: 15px;
+      line-height:1.5;
+      max-width: 60ch;
+    }
+    .hero-row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .search{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      margin-top: 12px;
+    }
+    .input{
+      flex:1;
+      min-width: 220px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      padding:12px 14px;
+      border-radius:14px;
+      outline:none;
+    }
+    .input::placeholder{color: rgba(151,163,182,.75)}
+    .select{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      padding:12px 14px;
+      border-radius:14px;
+      outline:none;
+      font-weight:700;
+    }
+    .hero-side{
+      display:grid; gap:12px;
+      align-content: start;
+    }
+    .mini{
+      padding:16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .mini b{display:block; margin-bottom:6px}
+    .mini span{color:var(--muted); font-size: 13px; line-height:1.4}
+
+    .grid{
+      padding: 10px 18px 40px;
+      max-width:1100px; margin:0 auto;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:14px;
+    }
+    @media (max-width: 920px){
+      header.hero{grid-template-columns: 1fr; padding-bottom: 0}
+      .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
+    }
+    @media (max-width: 560px){
+      .grid{grid-template-columns: 1fr}
+      .nav{display:none}
+    }
+
+    .product{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      display:flex; flex-direction:column;
+      min-height: 100%;
+    }
+    .thumb{
+      width:100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      background:#0f172a;
+      display:block;
+    }
+    .p-body{padding:14px 14px 16px; display:grid; gap:10px}
+    .p-top{
+      display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
+    }
+    .p-title{font-weight:900; letter-spacing:.2px}
+    .tag{
+      font-size:12px;
+      color:#08131e;
+      font-weight:900;
+      padding:6px 10px;
+      border-radius:999px;
+      background: linear-gradient(135deg, rgba(106,228,255,.95), rgba(139,92,246,.95));
+      white-space:nowrap;
+    }
+    .p-desc{color:var(--muted); font-size:13px; line-height:1.45}
+    .p-bottom{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-top: 2px;
+    }
+    .price{font-weight:900; font-size: 16px}
+    .small{color:var(--muted); font-size:12px}
+
+    /* CART MODAL */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      z-index: 50;
+    }
+    .overlay.show{display:block}
+    .cart{
+      position:fixed;
+      top:0; right:0;
+      height:100%;
+      width:min(420px, 92vw);
+      background: rgba(12,16,28,.92);
+      border-left:1px solid var(--line);
+      backdrop-filter: blur(14px);
+      box-shadow: -20px 0 70px rgba(0,0,0,.55);
+      transform: translateX(110%);
+      transition: .2s ease;
+      z-index: 60;
+      display:flex; flex-direction:column;
+    }
+    .cart.show{transform: translateX(0)}
+    .cart-header{
+      padding:16px;
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .cart-title{font-weight:900}
+    .cart-body{padding:12px 16px; overflow:auto; display:grid; gap:10px; flex:1}
+    .item{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      border-radius:16px;
+      padding:12px;
+      display:grid; gap:10px;
+    }
+    .item-row{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+    .qty{
+      display:flex; gap:8px; align-items:center;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:6px 8px;
+      background: rgba(255,255,255,.04);
+    }
+    .qty button{
+      width:28px; height:28px;
+      border-radius:10px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      cursor:pointer;
+      font-weight:900;
+    }
+    .qty b{min-width:18px; text-align:center}
+    .cart-footer{
+      border-top:1px solid var(--line);
+      padding:14px 16px;
+      display:grid; gap:10px;
+    }
+    .total{
+      display:flex; justify-content:space-between; align-items:center;
+      font-weight:900;
+    }
+    .help{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.35;
+    }
+    footer{
+      padding:22px 18px 40px;
+      max-width:1100px; margin:0 auto;
+      color:var(--muted);
+      border-top:1px solid var(--line);
+    }
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.7);
+      border:1px solid var(--line);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 14px;
+      display:none;
+      z-index: 80;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div style="font-size:14px; font-weight:900;">Tienda de Nathaly</div>
+          <div class="small">Feria Navideña · Noche de Estrellas · Tocopilla, Chile</div>
+        </div>
+      </div>
+
+      <div class="nav" aria-label="Navegación">
+        <a href="#productos">Productos</a>
+        <a href="#info">Información</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+
+      <div class="actions">
+        <span class="pill" id="pillOpen">🛒 Carrito: <span id="cartCount">0</span></span>
+        <button class="btn btn-primary" id="openCart">Abrir carrito</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-card">
+      <h1>Tienda de Nathaly</h1>
+      <p>
+        Feria Navideña <b>“Noche de Estrellas”</b> ✨<br />
+        Emprendimiento local desde <b>Tocopilla, Chile</b>. Agrega productos al carrito y compra por WhatsApp.
+      </p>
+
+      <div class="hero-row">
+        <a class="btn btn-primary" href="#productos">Ver productos</a>
+        <a class="btn" href="#contacto">Cómo comprar</a>
+        <span class="pill">📍 Tocopilla, Chile</span>
+      </div>
+
+      <div class="search">
+        <input class="input" id="searchInput" placeholder="Buscar producto (ej: galletas, chocolate, bebidas…)" />
+        <select class="select" id="catSelect">
+          <option value="all">Todas las categorías</option>
+          <option value="Dulces">Dulces</option>
+          <option value="Salados">Salados</option>
+          <option value="Bebidas">Bebidas</option>
+          <option value="Ofertas">Ofertas</option>
+        </select>
+        <button class="btn" id="clearFilters">Limpiar</button>
+      </div>
+    </div>
+
+    <div class="hero-side">
+      <div class="mini">
+        <b>🎄 Feria Navideña</b>
+        <span>Noche de Estrellas — productos para regalar y compartir.</span>
+      </div>
+      <div class="mini">
+        <b>🚚 Entrega / Retiro</b>
+        <span>Coordina retiro en feria o entrega dentro de Tocopilla (según disponibilidad).</span>
+      </div>
+      <div class="mini">
+        <b>💬 Compra por WhatsApp</b>
+        <span>Al finalizar, se arma tu pedido automático con total y detalle.</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- PRODUCTS -->
+  <section id="productos" class="container">
+    <h2 style="margin:10px 0 8px; font-weight:900;">Productos</h2>
+    <p style="margin:0 0 14px; color:var(--muted);">
+      Puedes editar los productos dentro del código (lista en JavaScript). Imágenes de ejemplo incluidas.
+    </p>
+  </section>
+
+  <section class="grid" id="productGrid" aria-label="Lista de productos"></section>
+
+  <!-- INFO -->
+  <section id="info" class="container">
+    <div class="hero-card" style="padding:18px;">
+      <h2 style="margin:0 0 10px; font-weight:900;">Información</h2>
+      <p style="margin:0; color:var(--muted); line-height:1.55;">
+        <b>Nombre:</b> Tienda de Nathaly<br/>
+        <b>Ubicación:</b> Tocopilla, Chile<br/>
+        <b>Evento:</b> Feria Navideña “Noche de Estrellas” ✨<br/>
+        <b>Horario:</b> (edita aquí tu horario)<br/>
+        <b>Pagos:</b> (edita aquí: efectivo / transferencia / etc.)<br/>
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contacto" class="container">
+    <div class="hero-card" style="padding:18px;">
+      <h2 style="margin:0 0 10px; font-weight:900;">Contacto y compra</h2>
+      <p style="margin:0 0 10px; color:var(--muted); line-height:1.55;">
+        1) Agrega productos al carrito.<br/>
+        2) Abre el carrito y presiona <b>“Comprar por WhatsApp”</b>.<br/>
+        3) Se enviará el pedido con detalle + total para coordinar entrega o retiro.
+      </p>
+
+      <a class="btn btn-primary" id="waDirect" target="_blank" rel="noopener">Abrir WhatsApp (directo)</a>
+    </div>
+  </section>
+
+  <footer>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; align-items:center;">
+      <div>© <span id="year"></span> Tienda de Nathaly · Tocopilla, Chile</div>
+      <div class="small">Hecho para GitHub Pages · HTML + CSS + JS</div>
+    </div>
+  </footer>
+
+  <!-- CART -->
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="cart" id="cartPanel" aria-label="Carrito de compras">
+    <div class="cart-header">
+      <div>
+        <div class="cart-title">🛒 Tu carrito</div>
+        <div class="small">Feria Navideña · Noche de Estrellas</div>
+      </div>
+      <button class="btn" id="closeCart">Cerrar</button>
+    </div>
+
+    <div class="cart-body" id="cartBody">
+      <!-- items -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="total">
+        <span>Total</span>
+        <span id="cartTotal">$0</span>
+      </div>
+
+      <button class="btn btn-primary" id="checkoutBtn">Comprar por WhatsApp</button>
+      <button class="btn" id="clearCartBtn">Vaciar carrito</button>
+
+      <div class="help">
+        * Los precios son referenciales. Puedes ajustar productos, stock y valores en el código.
+      </div>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast">Agregado al carrito ✅</div>
+
+  <script>
+    // =========================
+    // CONFIG BÁSICA
+    // =========================
+    const STORE_NAME = "Tienda de Nathaly";
+    const STORE_CITY = "Tocopilla, Chile";
+    const EVENT_NAME = "Feria Navideña “Noche de Estrellas”";
+    const WHATSAPP_NUMBER = "569XXXXXXXX"; // <-- CAMBIA AQUÍ (ej: 5696937886)
+
+    // =========================
+    // PRODUCTOS (EDITA AQUÍ)
+    // =========================
+    const products = [
+      {
+        id: "p1",
+        name: "Caja de galletas navideñas",
+        price: 3500,
+        category: "Dulces",
+        tag: "🎁 Regalo",
+        desc: "Galletas surtidas, ideal para compartir.",
+        img: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=1200&q=60"
+      },
+      {
+        id: "p2",
+        name: "Brownie con chocolate",
+        price: 2500,
+        category: "Dulces",
+        tag: "🍫 Top",
+        desc: "Porción individual, suave y con cobertura.",
+        img: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=1200&q=60"
+      },
+      {
+        id: "p3",
+        name: "Empanaditas (docena)",
+        price: 6000,
+        category: "Salados",
+        tag: "🥟 Nuevo",
+        desc: "Surtidas, perfectas para la tarde.",
+        img: "https://images.unsplash.com/photo-1604909053191-2b6e0f2d3b60?auto=format&fit=crop&w=1200&q=60"
+      },
+      {
+        id: "p4",
+        name: "Mini pizza",
+        price: 2000,
+        category: "Salados",
+        tag: "🔥 Rico",
+        desc: "Lista para servir, sabor casero.",
+        img: "https://images.unsplash.com/photo-1548365328-8b849e6f1c9b?auto=format&fit=crop&w=1200&q=60"
+      },
+      {
+        id: "p5",
+        name: "Bebida / jugo",
+        price: 1500,
+        category: "Bebidas",
+        tag: "🥤",
+        desc: "Opciones según disponibilidad.",
+        img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=1200&q=60"
+      },
+      {
+        id: "p6",
+        name: "Pack oferta navideña",
+        price: 9900,
+        category: "Ofertas",
+        tag: "⭐ Oferta",
+        desc: "Combinación ideal para regalar.",
+        img: "https://images.unsplash.com/photo-1542992015-8e6e5f3a8b1b?auto=format&fit=crop&w=1200&q=60"
+      }
+    ];
+
+    // =========================
+    // UTILIDADES
+    // =========================
+    const fmtCLP = (n) => new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP", maximumFractionDigits: 0 }).format(n);
+    const $ = (id) => document.getElementById(id);
+
+    const toast = $("toast");
+    let toastTimer = null;
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.style.display = "block";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=> toast.style.display = "none", 1100);
+    }
+
+    // =========================
+    // RENDER PRODUCTOS
+    // =========================
+    const grid = $("productGrid");
+    const searchInput = $("searchInput");
+    const catSelect = $("catSelect");
+    const clearFilters = $("clearFilters");
+
+    function renderProducts(list){
+      grid.innerHTML = "";
+      list.forEach(p=>{
+        const card = document.createElement("article");
+        card.className = "product";
+        card.innerHTML = `
+          <img class="thumb" src="${p.img}" alt="${p.name}">
+          <div class="p-body">
+            <div class="p-top">
+              <div>
+                <div class="p-title">${p.name}</div>
+                <div class="small">${p.category}</div>
+              </div>
+              <div class="tag">${p.tag || "✨"}</div>
+            </div>
+            <div class="p-desc">${p.desc || ""}</div>
+            <div class="p-bottom">
+              <div>
+                <div class="price">${fmtCLP(p.price)}</div>
+                <div class="small">Disponible en feria</div>
+              </div>
+              <button class="btn btn-primary" data-add="${p.id}">Agregar</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // bind add buttons
+      grid.querySelectorAll("[data-add]").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          const id = btn.getAttribute("data-add");
+          addToCart(id);
+        });
+      });
+    }
+
+    function applyFilters(){
+      const q = searchInput.value.trim().toLowerCase();
+      const cat = catSelect.value;
+      const filtered = products.filter(p=>{
+        const matchText = (p.name + " " + p.category + " " + (p.desc||"")).toLowerCase().includes(q);
+        const matchCat = (cat === "all") ? true : p.category === cat;
+        return matchText && matchCat;
+      });
+      renderProducts(filtered);
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    catSelect.addEventListener("change", applyFilters);
+    clearFilters.addEventListener("click", ()=>{
+      searchInput.value = "";
+      catSelect.value = "all";
+      applyFilters();
+    });
+
+    // =========================
+    // CARRITO (localStorage)
+    // =========================
+    const cartKey = "nathaly_store_cart_v1";
+    let cart = JSON.parse(localStorage.getItem(cartKey) || "{}"); // {productId: qty}
+
+    function saveCart(){
+      localStorage.setItem(cartKey, JSON.stringify(cart));
+      updateCartUI();
+    }
+
+    function addToCart(productId){
+      cart[productId] = (cart[productId] || 0) + 1;
+      saveCart();
+      showToast("Agregado al carrito ✅");
+    }
+
+    function removeOne(productId){
+      if(!cart[productId]) return;
+      cart[productId] -= 1;
+      if(cart[productId] <= 0) delete cart[productId];
+      saveCart();
+    }
+
+    function addOne(productId){
+      cart[productId] = (cart[productId] || 0) + 1;
+      saveCart();
+    }
+
+    function clearCart(){
+      cart = {};
+      saveCart();
+    }
+
+    function cartItems(){
+      return Object.entries(cart).map(([id, qty])=>{
+        const p = products.find(x=>x.id===id);
+        return { product: p, qty };
+      }).filter(x=>x.product);
+    }
+
+    // =========================
+    // UI CARRITO
+    // =========================
+    const cartPanel = $("cartPanel");
+    const overlay = $("overlay");
+    const openCart = $("openCart");
+    const closeCart = $("closeCart");
+    const cartBody = $("cartBody");
+    const cartTotal = $("cartTotal");
+    const cartCount = $("cartCount");
+    const checkoutBtn = $("checkoutBtn");
+    const clearCartBtn = $("clearCartBtn");
+    const pillOpen = $("pillOpen");
+    const waDirect = $("waDirect");
+
+    function openCartPanel(){
+      overlay.classList.add("show");
+      cartPanel.classList.add("show");
+    }
+    function closeCartPanel(){
+      overlay.classList.remove("show");
+      cartPanel.classList.remove("show");
+    }
+
+    openCart.addEventListener("click", openCartPanel);
+    pillOpen.addEventListener("click", openCartPanel);
+    closeCart.addEventListener("click", closeCartPanel);
+    overlay.addEventListener("click", closeCartPanel);
+
+    function updateCartUI(){
+      const items = cartItems();
+      const count = items.reduce((a,b)=>a + b.qty, 0);
+      cartCount.textContent = count;
+
+      if(items.length === 0){
+        cartBody.innerHTML = `
+          <div class="mini">
+            <b>Tu carrito está vacío</b>
+            <span>Agrega productos para comprar por WhatsApp.</span>
+          </div>
+        `;
+        cartTotal.textContent = fmtCLP(0);
+        return;
+      }
+
+      let total = 0;
+      cartBody.innerHTML = "";
+      items.forEach(({product, qty})=>{
+        const sub = product.price * qty;
+        total += sub;
+
+        const el = document.createElement("div");
+        el.className = "item";
+        el.innerHTML = `
+          <div class="item-row">
+            <div>
+              <div style="font-weight:900">${product.name}</div>
+              <div class="small">${product.category} · ${fmtCLP(product.price)} c/u</div>
+            </div>
+            <div style="font-weight:900">${fmtCLP(sub)}</div>
+          </div>
+          <div class="item-row" style="align-items:center;">
+            <div class="qty">
+              <button data-minus="${product.id}" aria-label="Quitar">−</button>
+              <b>${qty}</b>
+              <button data-plus="${product.id}" aria-label="Agregar">+</button>
+            </div>
+            <button class="btn" data-del="${product.id}">Eliminar</button>
+          </div>
+        `;
+        cartBody.appendChild(el);
+      });
+
+      cartTotal.textContent = fmtCLP(total);
+
+      cartBody.querySelectorAll("[data-minus]").forEach(b=>{
+        b.addEventListener("click", ()=> removeOne(b.getAttribute("data-minus")));
+      });
+      cartBody.querySelectorAll("[data-plus]").forEach(b=>{
+        b.addEventListener("click", ()=> addOne(b.getAttribute("data-plus")));
+      });
+      cartBody.querySelectorAll("[data-del]").forEach(b=>{
+        b.addEventListener("click", ()=>{
+          const id = b.getAttribute("data-del");
+          delete cart[id];
+          saveCart();
+        });
+      });
+    }
+
+    clearCartBtn.addEventListener("click", ()=>{
+      clearCart();
+      showToast("Carrito vaciado 🧹");
+    });
+
+    // =========================
+    // WHATSAPP CHECKOUT
+    // =========================
+    function buildWhatsappMessage(){
+      const items = cartItems();
+      const lines = [];
+      lines.push(`Hola! 👋 Quiero hacer un pedido en *${STORE_NAME}*`);
+      lines.push(`${EVENT_NAME} · ${STORE_CITY}`);
+      lines.push("");
+      lines.push("*Pedido:*");
+
+      let total = 0;
+      items.forEach(({product, qty})=>{
+        const sub = product.price * qty;
+        total += sub;
+        lines.push(`- ${qty} x ${product.name} (${fmtCLP(product.price)} c/u) = ${fmtCLP(sub)}`);
+      });
+
+      lines.push("");
+      lines.push(`*Total:* ${fmtCLP(total)}`);
+      lines.push("");
+      lines.push("¿Me confirmas disponibilidad y forma de entrega/retiro? 🙏");
+
+      return lines.join("\n");
+    }
+
+    function openWhatsAppWithCart(){
+      if(Object.keys(cart).length === 0){
+        showToast("Agrega productos primero 🛒");
+        return;
+      }
+      if(!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes("X")){
+        alert("Falta configurar tu WhatsApp.\nEdita el código y cambia WHATSAPP_NUMBER por tu número (ej: 5696937886).");
+        return;
+      }
+      const msg = encodeURIComponent(buildWhatsappMessage());
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+      window.open(url, "_blank", "noopener");
+    }
+
+    checkoutBtn.addEventListener("click", openWhatsAppWithCart);
+
+    // WhatsApp directo (sin carrito)
+    waDirect.addEventListener("click", ()=>{
+      if(!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes("X")){
+        alert("Falta configurar tu WhatsApp.\nEdita el código y cambia WHATSAPP_NUMBER por tu número (ej: 5696937886).");
+        return;
+      }
+      const msg = encodeURIComponent(`Hola! 👋 Quiero consultar por productos en *${STORE_NAME}* (${EVENT_NAME} · ${STORE_CITY}).`);
+      waDirect.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+    });
+
+    // =========================
+    // INIT
+    // =========================
+    document.getElementById("year").textContent = new Date().getFullYear();
+    applyFilters();
+    updateCartUI();
+  </script>
+</body>
+  </html>
